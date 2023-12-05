@@ -6,5 +6,5 @@
 path := ".\cycle-audio-device-script.ps1"
 profile := "C:\Users\yerba\Documents\WindowsPowerShell\speaker-toggle_profile.ps1"
 ^!Esc:: ; Ctrl+Alt+Esc
-    Run "C:/Program Files/PowerShell/7/pwsh.exe" -NoLogo -noprofile "%path%", ,hide
+    Run "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -noprofile "%path%", ,hide
 Return

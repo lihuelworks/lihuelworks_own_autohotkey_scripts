@@ -1,6 +1,8 @@
 # Lihuelworks own Autohotkey scripts 🚀
 
 ## Notes
+- All scripts are made for AUTOHOTKEY 1 (currently deprecated, but still useful!)
+- If you haven't configured Powershell to accept running scripts, be sure to update Powershell to accept them by pasting `Set-ExecutionPolicy Unrestricted` in a Powershell console
 - Repo comes with a script "ahk_killall.bat". In case any script gives you trouble, you can press the .bat script to stop all Autohotkey processes (It basically has 2 "taskkill" for the default name for x64 Autohotkey processes)
 - All scripts are written with Windows 10 in mind. This sholudn't give you any trouble, since Windows basics don't change from version to version (but who knows ¯\_(ツ)_/¯)
 - Most of the files here are written for Autohotkey 1, which shouldn't give you any trouble if you install authotkey normally. Be sure to not rename the file endings to `.ahk` or it will prompt you to choose between Autohotkey 1 and 2 (The scripts don't work for Autohotkey 2, since it has different syntax)

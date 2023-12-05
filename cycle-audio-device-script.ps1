@@ -1,19 +1,24 @@
 ## SPEAKER-TO-HYPER_SPEAKER_ORBACK
 
-# 🔗 AudioDeviceCmdlets 👉🏽 https://github.com/frgnca/AudioDeviceCmdlets
-
-# Load the AudioDeviceCmdlets.dll from the same folder as the script
-$scriptPath = $PSScriptRoot
-$audioDeviceCmdletsPath = Join-Path $scriptPath 'AudioDeviceCmdlets.dll'
-Import-Module -LiteralPath $audioDeviceCmdletsPath
-
-# Check if BurntToast module is installed, if not, install it
+# Check if BurntToast module is installed
 if (-not (Get-Module -Name BurntToast -ListAvailable)) {
-    Install-Module -Name BurntToast -Force -AllowClobber
+    Write-Host "Error: BurntToast module is not installed."
+    Write-Host "Please follow the instructions in the README to install BurntToast."
+    Write-Host "README: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts"
+    exit
+}
+
+# Check if AudioDeviceCmdlets module is installed
+if (-not (Get-Module -Name AudioDeviceCmdlets -ListAvailable)) {
+    Write-Host "Error: AudioDeviceCmdlets module is not installed."
+    Write-Host "Please follow the instructions in the README to install AudioDeviceCmdlets."
+    Write-Host "README: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts"
+    exit
 }
 
 # Import the BurntToast module
 Import-Module -Name BurntToast -Force
+Import-Module -Name AudioDeviceCmdlets -Force
 
 # Function to set the default playback device
 function Set-DefaultPlaybackDevice {
@@ -63,5 +68,5 @@ Set-DefaultPlaybackDevice -index $nextPlaybackIndex
 
 # Display a toast notification
 $deviceName = $playbackDeviceTuples[$nextPlaybackIndex - 1].Name
-$notificationMessage = "🔉Changed to audio device 👉🏻 $deviceName"
+$notificationMessage = "Changed to audio device -> $deviceName"
 New-BurntToastNotification -Text $notificationMessage
