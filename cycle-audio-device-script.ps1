@@ -2,17 +2,25 @@
 
 # Check if BurntToast module is installed
 if (-not (Get-Module -Name BurntToast -ListAvailable)) {
-    Write-Host "Error: BurntToast module is not installed."
-    Write-Host "Please follow the instructions in the README to install BurntToast."
-    Write-Host "README: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts"
+    [System.Windows.Forms.MessageBox]::Show(
+        "Error: BurntToast module is not installed.`r`nPlease follow the instructions in the README to install BurntToast.`r`nREADME: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts",
+        "Module Not Installed",
+        [System.Windows.Forms.MessageBoxButtons]::OK,
+        [System.Windows.Forms.MessageBoxIcon]::Error
+    )
+    Start-Process "https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts#pre-install-for-cycle-audio-deviceahk1"
     exit
 }
 
 # Check if AudioDeviceCmdlets module is installed
 if (-not (Get-Module -Name AudioDeviceCmdlets -ListAvailable)) {
-    Write-Host "Error: AudioDeviceCmdlets module is not installed."
-    Write-Host "Please follow the instructions in the README to install AudioDeviceCmdlets."
-    Write-Host "README: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts"
+    [System.Windows.Forms.MessageBox]::Show(
+        "Error: AudioDeviceCmdlets module is not installed.`r`nPlease follow the instructions in the README to install AudioDeviceCmdlets.`r`nREADME: https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts",
+        "Module Not Installed",
+        [System.Windows.Forms.MessageBoxButtons]::OK,
+        [System.Windows.Forms.MessageBoxIcon]::Error
+    )
+    Start-Process "https://github.com/lihuelworks/lihuelworks_own_autohotkey_scripts#pre-install-for-cycle-audio-deviceahk1"
     exit
 }
 
