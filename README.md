@@ -7,6 +7,15 @@
 - All scripts are written with Windows 10 in mind. This sholudn't give you any trouble, since Windows basics don't change from version to version (but who knows ¯\_(ツ)_/¯)
 - Most of the files here are written for Autohotkey 1, which shouldn't give you any trouble if you install authotkey normally. Be sure to not rename the file endings to `.ahk` or it will prompt you to choose between Autohotkey 1 and 2 (The scripts don't work for Autohotkey 2, since it has different syntax)
 
+### Pre-install for cycle-audio-device.ahk1
+- You probably don't have `BurnToast` and `AudioDeviceCmdlets`, so let's fix that. On a Powershell Admin Terminal, paste the following commands to install them (Be sure to press S, then Enter to confirm)
+    ```
+     Install-Module -Name AudioDeviceCmdlets -Force -AllowClobber
+    ```
+    ```
+     Install-Module -Name BurntToast -Force -AllowClobber
+    ```
+
 ### terminal.ahk
 - `Ctrl` + `Alt` + `T` 👉🏻 Opens Windows Terminal on the default profile, with the same combination you would use to open one in Linux.
     - You can change the type of terminal by changing the executable (currently ”wt.exe”) to any other, like Powershell, CMD or Git Bash.
