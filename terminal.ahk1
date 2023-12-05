@@ -1,0 +1,29 @@
+﻿#NoTrayIcon
+#NoEnv 
+#SingleInstance Force
+SendMode Input
+SetWorkingDir %A_ScriptDir%
+
+; If the script is not elevated, relaunch as administrator and kill current instance:
+
+full_command_line := DllCall("GetCommandLine", "str")
+
+<^<!p::Run "wt.exe"
+return
+
+; Si usas windows terminal, podes ajustar que "perfil" usar, y abrirlo con otra combinación de comandos (ejemplo debajo)
+
+/* <^<!u::
+    ; Set the path to Windows Terminal executable (wt.exe)
+    terminal_exe := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.17.11461.0_x64__8wekyb3d8bbwe\wt.exe"
+    
+    ; Set the command to run WSL Ubuntu profile
+    wsl_exe := "C:\Windows\system32\wsl.exe"
+    wsl_params := "-d Ubuntu"
+    
+    ; Combine the command and parameters with a space
+    full_command := wsl_exe . " " . wsl_params
+    
+    ; Run Windows Terminal with the WSL Ubuntu profile
+    Run %terminal_exe% %full_command%
+return */

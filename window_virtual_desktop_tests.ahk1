@@ -1,0 +1,57 @@
+#NoTrayIcon 
+#SingleInstance Force
+
+; AutoHotkey v1 script
+
+; Get hwnd of AutoHotkey window, for listener
+
+; Path to the DLL, relative to the script
+VDA_PATH := A_ScriptDir . "\VirtualDesktopAccessor.dll"
+hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", VDA_PATH, "Ptr")
+
+GetDesktopCountProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "GetDesktopCount", "Ptr")
+GoToDesktopNumberProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "GoToDesktopNumber", "Ptr")
+GetCurrentDesktopNumberProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "GetCurrentDesktopNumber", "Ptr")
+IsWindowOnCurrentVirtualDesktopProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "IsWindowOnCurrentVirtualDesktop", "Ptr")
+IsWindowOnDesktopNumberProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "IsWindowOnDesktopNumber", "Ptr")
+MoveWindowToDesktopNumberProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "MoveWindowToDesktopNumber", "Ptr")
+IsPinnedWindowProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "IsPinnedWindow", "Ptr")
+GetDesktopNameProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "GetDesktopName", "Ptr")
+SetDesktopNameProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "SetDesktopName", "Ptr")
+CreateDesktopProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "CreateDesktop", "Ptr")
+RemoveDesktopProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "RemoveDesktop", "Ptr")
+
+; On change listeners
+RegisterPostMessageHookProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "RegisterPostMessageHook", "Ptr")
+UnregisterPostMessageHookProc := DllCall("GetProcAddress", "Ptr", hVirtualDesktopAccessor, "AStr", "UnregisterPostMessageHook", "Ptr")
+
+MoveCurrentWindowToPrevDesktop() {
+    global MoveWindowToDesktopNumberProc, GoToDesktopNumberProc, activeWindowByDesktop, GetCurrentDesktopNumberProc
+    current := DllCall(GetCurrentDesktopNumberProc, UInt)
+    WinGet, activeHwnd, ID, A
+    if (current = 0) {
+        return
+    } else {
+        activeWindowByDesktop[current - 1] := 0 ; Do not activate
+        DllCall(MoveWindowToDesktopNumberProc, UInt, activeHwnd, UInt, current - 1)
+        Send, {Blind}{Ctrl Down}{LWin Down}{Left Down}{Left Up}{LWin Up}{Ctrl Up}
+    }
+    return
+}
+
+MoveCurrentWindowToNextDesktop() {
+    global MoveWindowToDesktopNumberProc, GoToDesktopNumberProc, activeWindowByDesktop, GetCurrentDesktopNumberProc
+    current := DllCall(GetCurrentDesktopNumberProc, UInt)
+    WinGet, activeHwnd, ID, A
+    if (current = 3) {
+        return
+    } else {
+        activeWindowByDesktop[current + 1] := 0 ; Do not activate
+        DllCall(MoveWindowToDesktopNumberProc, UInt, activeHwnd, UInt, current + 1)
+        Send, {Blind}{Ctrl Down}{LWin Down}{Right Down}{Right Up}{LWin Up}{Ctrl Up}
+    }
+    return
+}
+
+^!Left::MoveCurrentWindowToPrevDesktop()
+^!Right::MoveCurrentWindowToNextDesktop()

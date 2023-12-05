@@ -1,0 +1,26 @@
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#SingleInstance Force
+#NoTrayIcon 
+#IfWinActive ahk_class CabinetWClass
+
+GetActiveExplorerPath()
+{
+    explorerHwnd := WinActive("ahk_class CabinetWClass")
+    if (explorerHwnd) {
+        for window in ComObjCreate("Shell.Application").Windows
+        {
+            if (window.hwnd==explorerHwnd) {
+                return window.Document.Folder.Self.Path
+            }
+        }
+    }
+}
+
+F12::
+    ; ControlGetText, _Path, toolbarwindow322, ahk_class CabinetWClass
+    ; StringReplace, _Path, _Path, % "Address: ", % ""
+    _Path := GetActiveExplorerPath()
+    ;TrayTip, PATH, %_Path%
+    ; Run "wt.exe -d "%Test%
+    Run "wt.exe" -d "%_Path%"
+    ; Run, % "wt.exe -d %Test%"

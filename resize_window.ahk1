@@ -1,0 +1,33 @@
+#SingleInstance Force
+#Include windrag.ahk1
+SetTitleMatchMode, 2
+
+; Grupos de software donde el script NO funciona
+GroupAdd, noActivarEn, diagrams.net
+GroupAdd, noActivarEn, ahk_class OBS
+GroupAdd, noActivarEn, OBS
+GroupAdd, noActivarEn, ahk_class obs64.exe
+GroupAdd, noActivarEn, obs64.exe
+GroupAdd, noActivarEn, ahk_class Adobe Photoshop 2020
+GroupAdd, noActivarEn, ahk_class Photoshop.exe
+GroupAdd, noActivarEn, ahk_class Photoshop
+GroupAdd, noActivarEn, Adobe
+GroupAdd, noActivarEn, photoshop
+GroupAdd, noActivarEn, ahk_class photoshop
+GroupAdd, noActivarEn, draw.io.exe
+GroupAdd, noActivarEn, PureRef.exe
+GroupAdd, noActivarEn, PureRef
+GroupAdd, noActivarEn, Visual Studio Code
+GroupAdd, noActivarEn, ahk_class illustrator ; Adobe Illustrator
+GroupAdd, noActivarEn, ahk_class indesign ; Adobe InDesign
+GroupAdd, AllWindows
+return
+
+
+
+#IfWinNotActive ahk_group noActivarEn
+; Ctrl + Alt + Click izquierdo 👉🏻 mover ventana clickeando en CUALQUIER lado
+^!LButton::WindowMouseDragMove()
+; Ctrl + Alt + Click derecho 👉🏻 redimensionar ventana (tambien clickeando en cualquier lado)
+^!RButton::WindowMouseDragResize()
+

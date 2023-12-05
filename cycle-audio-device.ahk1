@@ -1,0 +1,10 @@
+#SingleInstance Force
+#NoTrayIcon 
+
+; AudiDeviceCmdlets dll sacado de https://github.com/frgnca/AudioDeviceCmdlets/releases/tag/v3.1
+; En caso de no confiar en el dll, se puede reemplazar con el de "Releases" de esa página (o más recomendable, instalar la librería desde Powershell)
+path := ".\cycle-audio-device-script.ps1"
+profile := "C:\Users\yerba\Documents\WindowsPowerShell\speaker-toggle_profile.ps1"
+^!Esc:: ; Ctrl+Alt+Esc
+    Run "C:/Program Files/PowerShell/7/pwsh.exe" -NoLogo -noprofile "%path%", ,hide
+Return

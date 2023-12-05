@@ -1,0 +1,34 @@
+#NoTrayIcon 
+#SingleInstance Force
+#persistent
+f1::StartClose("ahk_class #32770", "sndvol")
+
+StartClose(title, exe)
+{
+	WinGetTitle, title2
+    IfWinExist, %title%
+        WinClose
+    else
+    {
+        Run, %exe%
+        WinActivate
+		WinSet, AlwaysOnTop, On, "ahk_class #32770"
+		WinSet, AlwaysOnTop, Off, "ahk_class #32770"
+		; aparentemente la ultima vez lo deshabilité pq rompía apps en fullscreen, así q cuidao ahí
+		WinSet, Top
+    }
+	while True {
+		sleep 200
+		if !WinActive("ahk_class #32770"){
+		; msgbox break
+		break
+		}
+		; msgbox loop
+	}
+	if !WinActive("ahk_class #32770"){
+		WinKill, %title2%
+		; msgbox kill
+	}
+	Return
+	; msgbox fin
+}
